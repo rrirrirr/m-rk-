@@ -1,0 +1,70 @@
+points:
+  key:
+    footprints:
+      choc_hotswap:
+        type: choc
+        params:
+          hotswap: true
+          reverse: true
+          keycaps: true
+        nets:
+          from: =column_net
+          to: =GND
+      choc:
+        anchor: 
+          rotate:180
+        nets:
+          from: =column_net
+          to: =GND
+        params:
+          reverse: true
+          keycaps: true
+      diode:
+        type: diode
+        nets:
+          from: =colrow
+          to: =row_net
+        anchor:
+          shift: [0, -5]
+  zones:
+    matrix:
+      anchor:
+        rotate: 5
+      rows:
+        bottom:
+        home:
+        top:
+      columns:
+        outer:
+           rows.top.skip: true
+           rows.bottom.skip: true
+        pinky.key:
+          stagger: -2
+        ring.key:
+          splay: -7
+          origin: [-12, -19]
+          stagger: 18
+        middle.key:
+          splay: -3
+          stagger: 5
+          origin: [-12, -19]
+        index.key.stagger: -6
+        inner.key.stagger: -2
+    thumbfan:
+      anchor:
+        ref: matrix_inner_bottom
+        rotate: -10
+        shift: [-12, -22]
+      columns:
+        near:
+        home.key:  
+          spread: 20.25
+          splay: -20
+          origin: [-11.75, -9]
+        far.key: 
+          spread: 20.25
+          splay: -20
+          origin: [-9.5, -9]
+      rows:
+        thumb:
+  rotate: -20
