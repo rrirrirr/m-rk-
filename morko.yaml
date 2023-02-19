@@ -1,0 +1,304 @@
+points:
+  key:
+    padding: cy
+    tags:
+      1u: true
+    footprints:
+      choc_hotswap:
+        type: choc
+        params:
+          hotswap: true
+          reverse: true
+          keycaps: true
+        nets:
+          from: =column_net
+          to: =GND
+      choc:
+        anchor: 
+          rotate:180
+        nets:
+          from: =column_net
+          to: =GND
+        params:
+          reverse: true
+          keycaps: true
+      diode:
+        type: diode
+        nets:
+          from: =colrow
+          to: =row_net
+        anchor:
+          shift: [0, -5]
+  zones:
+    matrix:
+      anchor:
+        rotate: 5
+      rows:
+        bottom:
+        home:
+        top:
+      columns:
+        outer:
+          key:
+            spread: cx
+          rows:
+            top.skip: true
+            bottom.skip: true
+            home:
+              bind: [0, 12, 0, 0]
+              column_net: P6
+              tags:
+                1u: false
+                15u: true
+        pinky:
+          key:
+            spread: cx
+            stagger: -2
+          rows:
+            bottom:
+              bind: [5, 0, 0, 0]
+              column_net: P7
+            home:
+              bind: [0, 12, 0, 0]
+              column_net: P6
+            top:
+              bind: [0, 8, 5, 0]
+              column_net: P5 
+        ring:
+          key:
+            spread: cx
+            splay: -7
+            origin: [-12, -19]
+            stagger: 18
+          rows:
+            bottom:
+              bind: [0, 0, 0, 0]
+              column_net: P4
+            home:
+              bind: [5, 0, 5, 0]
+              column_net: P3
+            top:
+              bind: [0, 6, 0, 0]
+              column_net: P0
+        middle:
+          key:
+            spread: cx
+            splay: -3
+            stagger: 5
+            origin: [-12, -19]
+          rows:
+            bottom:
+              bind: [0, 0, 0, 0]
+              column_net: P1
+            home:
+              bind: 5
+              column_net: P19
+            top:
+              bind: [0, 0, 0, 0]
+              column_net: P18
+        index:
+          key:
+            spread: cx
+            stagger: -6
+          rows:
+            bottom:
+              bind: [0, 0, 29, 0]
+              column_net: P15
+            home:
+              bind: [5, 0, 5, 0]
+              column_net: P14
+            top:
+              bind: [0, 0, 0, 6]
+              column_net: P16
+        inner:
+          key:
+            spread: cx
+            stagger: -2
+          rows: 
+            bottom:
+              bind: [5, 9, 2, 2]
+              column_net: P10
+            home:
+              bind: [0, 7, 0, 5]
+              column_net: P20
+            top:
+              bind: [0, 21, 5, 5]
+              column_net: P21
+    thumbfan:
+      anchor:
+        ref: matrix_inner_bottom
+        rotate: -10
+        shift: [-12, -22]
+      columns:
+        near:
+          rows:
+            thumb:
+              column_net: P8
+              bind: [0, 0, 0, 0]
+        home:
+          key:  
+            spread: cx+2.25
+            splay: -20
+            origin: [-11.75, -9]
+          rows:
+            thumb:
+              column_net: P9
+              bind: [0, 0, 0, 0]
+        far:
+          key: 
+            spread: cx+2.25
+            splay: -20
+            origin: [-9.5, -9]
+          rows:
+            thumb:
+              column_net: P9
+              bind: [10, 0, 0, 10]
+      rows:
+        thumb:
+  rotate: -20
+
+
+outlines:
+  raww:
+    - what: rectangle
+      where: true
+      bound: true
+      asym: left
+      size: [18,17]
+      corner: 3
+  secc:
+    - what: outline
+      name: raww
+      fillet: 2
+  smooth:
+    - what: outline
+      name: secc
+      fillet: 4
+  circle:
+    - what: circle
+      where:
+      - ref: thumbfan_home_thumb
+        shift: [-5,-77]
+      bound: false
+      radius: 62
+  poly:
+  - what: polygon # all borders
+    operation: stack
+    points:
+    - ref: matrix_index_bottom
+      shift: [-5,-2]    
+    - ref: matrix_ring_bottom
+      shift: [-5,-2]
+    - ref: matrix_pinky_bottom
+      shift: [-5,-2]
+    - ref: matrix_outer_home
+      shift: [-3,0]
+    - ref: matrix_pinky_top
+      shift: [-9,2]
+    - ref: matrix_ring_top
+      shift: [-9,2]
+    - ref: matrix_middle_top
+      shift: [-9,9]
+    - ref: matrix_index_top
+      shift: [-9,9]
+    - ref: matrix_inner_home
+      shift: [29,9]
+    - ref: thumbfan_far_thumb
+      shift: [8,10]
+    - ref: thumbfan_far_thumb
+      shift: [11,-30]
+    - ref: thumbfan_near_thumb
+      shift: [-13,-14]
+  smoothpoly:
+    - what: outline
+      name: poly
+      fillet: 4
+  keycap_1u:
+    - what: rectangle
+      size: [1cx - 0.5, 1cy - 0.5]
+      bound: false
+  keycap_15u:
+    - what: rectangle
+      size: [1cx - 0.5, 1.5cy -0.5]
+      bound: false
+  keycaps:
+    - what: outline
+      name: keycap_15u
+      where:
+      - ref: matrix_outer_home
+    - what: outline
+      name: keycap_15u
+      where:
+      - ref: thumbfan_near_thumb
+    - what: outline
+      name: keycap_15u
+      where:
+      - ref: thumbfan_home_thumb
+    - what: outline
+      name: keycap_15u
+      where:
+      - ref: thumbfan_far_thumb
+  first:
+    - what: outline
+      name: keycaps
+      fillet: 3
+  panel:
+    - what: outline
+      name: smooth
+    - what: outline
+      name: first
+      operation: add
+    - what: outline
+      name: smoothpoly
+      operation: add
+    - what: outline
+      name: circle
+      operation: subtract
+    - what: outline
+      name: first
+      operation: add
+pcbs:
+  morko:
+    outlines:
+      main:
+        outline: panel
+    footprints:
+      choc_hotswap:
+        what: choc
+        where: true
+        params:
+          from: =column_net
+          to: GND
+          keycaps: true
+          reverse: true
+          hotswap: true
+      choc:
+        what: choc
+        where: true
+        adjust:
+          rotate: 180
+        params:
+          from: =column_net
+          to: GND
+          keycaps: true
+          reverse: true
+      promicro:
+        what: promicro
+        where:
+          ref: matrix_inner_top
+          shift: [19, -8.5]
+          rotate: -90
+        params:
+          orientation: down
+      trrs:
+        what: trrs
+        where:
+          ref: matrix_inner_home
+          shift: [34.75, 6.5]
+        params:
+          A: GND
+          B: GND
+          C: P2
+          D: VCC
+          reverse: true
+          symmetric: true
